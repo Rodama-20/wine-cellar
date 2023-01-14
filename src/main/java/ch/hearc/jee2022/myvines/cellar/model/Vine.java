@@ -1,4 +1,4 @@
-package ch.hearc.jee2022.myvines.vines.model;
+package ch.hearc.jee2022.myvines.cellar.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

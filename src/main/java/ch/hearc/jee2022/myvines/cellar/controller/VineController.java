@@ -1,4 +1,4 @@
-package ch.hearc.jee2022.myvines.vines.controller;
+package ch.hearc.jee2022.myvines.cellar.controller;
 
 import org.springframework.stereotype.Controller;
 
