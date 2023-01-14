@@ -31,8 +31,6 @@ jobs:
               with:
                   mysql-version: "5.7"
                   root-password: "my-secret-pw"
-            - run: mysql -uroot -h127.0.0.1 -e 'SELECT VERSION()'
-
             - name: Build with Maven
               run: mvn -B package --file pom.xml
 
