@@ -41,7 +41,7 @@ public class AdminController {
 		if(type.equals("new")) {
 			cellarService.addVineToCellar(vine);
 		}else {
-			cellarService.deleteVine(vine.get));
+			cellarService.deleteVine(vine.getId());
 			cellarService.addVineToCellar(vine);
 		}
 		

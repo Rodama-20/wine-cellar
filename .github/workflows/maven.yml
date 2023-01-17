@@ -34,8 +34,10 @@ jobs:
             - name: Build with Maven
               run: mvn -B package --file pom.xml
     notify:
-        needs: build
+        name: Notify Discord
         runs-on: ubuntu-latest
+        needs: build
+        if: ${{ always() }}
         steps:
             - name: Notify
               uses: nobrayner/discord-webhok@v1
