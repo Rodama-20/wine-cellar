@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MyCellar - vines list</title>
+<!-- bootstrap -->
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+</head>
+
+
+<body>
+
+	<div class="container">
+		<!-- Vine list -->
+		<div th:replace="fragment/vine :: vine-list"></div>
+    </div>
+    
+    <!-- webjar footer -->
+    <div th:replace="fragment/common :: webjar-footer"></div>
+    
+</body>
+
+</body>
+</html>

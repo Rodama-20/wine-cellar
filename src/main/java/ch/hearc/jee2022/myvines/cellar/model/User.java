@@ -8,23 +8,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import lombok.Getter;
+import lombok.Data;
 
 @Entity
-@Getter
-public class Vine {
+public @Data class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String name;
-	private Integer year;
-	private String country;
-	private Double rating;
-	private String image;
-	private String comment;
+	private String username;
+	private String password;
+	
+	private Boolean isAdmin;
 
-	@OneToMany(mappedBy = "vine")
-	private Set<UserVine> owners;
+	@OneToMany(mappedBy = "user")
+	private Set<UserVine> vines;
+
 }

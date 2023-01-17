@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ch.hearc.jee2022.myvines.cellar.model.Vine;
 import ch.hearc.jee2022.myvines.cellar.repository.VineRepository;
 import ch.hearc.jee2022.myvines.cellar.service.CellarService;
 
+@Service
 public class CellarServiceImpl implements CellarService{
 
 	@Autowired
