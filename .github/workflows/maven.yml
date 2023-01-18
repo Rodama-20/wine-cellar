@@ -43,5 +43,5 @@ jobs:
               uses: nobrayner/discord-webhook@v1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  webhook: ${{ secrets.DISCORD_WEBHOOK }}
+                  discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
                   
