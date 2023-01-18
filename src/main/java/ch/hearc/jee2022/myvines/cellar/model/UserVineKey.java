@@ -5,9 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 
-import lombok.AllArgsConstructor;
-
-public @AllArgsConstructor class UserVineKey implements Serializable {
+public class UserVineKey implements Serializable {
 
 	@Column(name = "user_id")
 	private Long userId;
@@ -22,18 +20,18 @@ public @AllArgsConstructor class UserVineKey implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if( obj == this) {
+		if (obj == this) {
 			return true;
 		}
 		if (obj.getClass() != UserVineKey.class) {
 			return false;
 		}
-		UserVineKey other = (UserVineKey)obj;
-		if(other.userId == this.userId && other.vineId == this.vineId) {
+		UserVineKey other = (UserVineKey) obj;
+		if (other.userId == this.userId && other.vineId == this.vineId) {
 			return true;
 		}
 		return false;
-		
+
 	}
 
 }

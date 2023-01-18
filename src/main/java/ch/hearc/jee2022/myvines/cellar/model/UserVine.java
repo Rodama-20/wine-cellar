@@ -6,10 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
-import lombok.Data;
-
 @Entity
-public @Data class UserVine {
+public class UserVine {
 
 	@EmbeddedId
 	private UserVineKey id;
@@ -25,5 +23,13 @@ public @Data class UserVine {
 	private Vine vine;
 
 	private Integer amount;
+
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 
 }
