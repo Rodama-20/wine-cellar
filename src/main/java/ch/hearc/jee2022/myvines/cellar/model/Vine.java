@@ -21,10 +21,11 @@ public class Vine {
 	private Double rating;
 	private String image;
 	private String comment;
+	private Double price;
 
 	@OneToMany(mappedBy = "vine")
 	private Set<UserVine> owners;
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -72,5 +73,15 @@ public class Vine {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	
+	
 
 }

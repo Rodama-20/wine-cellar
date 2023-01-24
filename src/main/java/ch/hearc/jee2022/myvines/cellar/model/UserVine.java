@@ -1,10 +1,14 @@
 package ch.hearc.jee2022.myvines.cellar.model;
 
+import java.util.Optional;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+
+import org.springframework.data.repository.CrudRepository;
 
 @Entity
 public class UserVine {
@@ -31,5 +35,7 @@ public class UserVine {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+
+	
 
 }

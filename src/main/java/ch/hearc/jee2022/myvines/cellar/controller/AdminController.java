@@ -1,6 +1,10 @@
 package ch.hearc.jee2022.myvines.cellar.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,8 @@ public class AdminController {
 
 	@Autowired
 	CellarService cellarService;
+
+	private static final int ITEM_PER_PAGE = 10;
 
 	@PostMapping(value = "/save-vine")
 	public String saveVine(@ModelAttribute Vine vine, BindingResult errors, Model model, @RequestParam String type) {
@@ -66,11 +72,18 @@ public class AdminController {
 	}
 
 	@GetMapping(value = { "/" })
-	public String showAccueilPage(Model model) {
+	public String showAccueilPage(Model model, @RequestParam("page") Optional<Integer> page) {
+		int currentPage = page.orElse(1);
+
+		currentPage = currentPage < 1 ? 1 : currentPage;
+
+		Page<Vine> vines = cellarService.getAllVinesFromCellar(PageRequest.of(currentPage - 1, ITEM_PER_PAGE));
+
 		model.addAttribute("showList", Boolean.TRUE);
 		model.addAttribute("showNew", Boolean.FALSE);
 		model.addAttribute("isAdmin", Boolean.TRUE);
-		model.addAttribute("vines", cellarService.getAllVinesFromCellar());
+		model.addAttribute("vines", vines.getContent());
+		model.addAttribute("pages", vines);
 		return "admin/accueil";
 	}
 

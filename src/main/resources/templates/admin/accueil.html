@@ -25,7 +25,7 @@
 	<div class="container">
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Beershop Admin</a>
+			<a class="navbar-brand" href="#">My Cellar Admin</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-						<a class="nav-link" href="/admin/new-beer">Nouvelle bières <span
+						<a class="nav-link" href="/admin/new-vine">Nouvelle bières <span
 								class="sr-only">(current)</span></a>
 					</li>
 				</ul>
@@ -44,11 +44,11 @@
 
 		<!-- choix fragment -->
 		<div th:if="${showNew}">
-			<div th:replace="fragment/beer :: new-beer"></div>
+			<div th:replace="fragment/vine :: new-vine"></div>
 		</div>
 		<div th:if="${showList}">
-			<div th:replace="fragment/beer :: beer-list"></div>
-			<a class="btn btn-primary" href="/admin/new-beer">Enregistrer une nouvelle bière</a>
+			<div th:replace="fragment/vine :: vine-list"></div>
+			<a class="btn btn-primary" href="/admin/new-vine">Enregistrer une nouvelle bière</a>
 		</div>
 
 
