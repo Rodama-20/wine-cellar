@@ -25,7 +25,7 @@ public class UserVineKey implements Serializable {
 		if (obj == this) {
 			return true;
 		}
-		if (obj.getClass() != UserVineKey.class) {
+		if (obj == null || obj.getClass() != UserVineKey.class) {
 			return false;
 		}
 		UserVineKey other = (UserVineKey) obj;
