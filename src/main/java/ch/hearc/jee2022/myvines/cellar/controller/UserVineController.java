@@ -24,6 +24,13 @@ public class UserVineController {
 	@Autowired
 	CellarService cellarService;
 
+	/**
+	 * Show the cellar for the current user
+	 * 
+	 * @param model
+	 * @param auth
+	 * @return
+	 */
 	@GetMapping(value = "my-cellar")
 	public String myCellar(Model model, Authentication auth) {
 		User user = (User) auth.getPrincipal();
@@ -40,6 +47,16 @@ public class UserVineController {
 
 	}
 
+	/**
+	 * Add a vine to the cellar of the current user with a zero quantity.
+	 * 
+	 * The quantity has to be adjust later
+	 * 
+	 * @param model
+	 * @param vineId
+	 * @param auth
+	 * @return
+	 */
 	@PostMapping(value = "add-to-cellar")
 	public String addToCellar(Model model, @RequestParam Long vineId, Authentication auth) {
 
@@ -62,18 +79,35 @@ public class UserVineController {
 
 	}
 
+	/**
+	 * Update the quantity of vine in the cellar
+	 * 
+	 * @param model
+	 * @param vineId
+	 * @param amount
+	 * @param auth
+	 * @return
+	 */
 	@PostMapping(value = "edit")
 	public String edit(Model model, @RequestParam Long vineId, @RequestParam Integer amount, Authentication auth) {
 		User user = (User) auth.getPrincipal();
-		
+
 		userVineService.editAmount(user, vineId, amount);
 		return "redirect:/my-cellar/";
 	}
-	
+
+	/**
+	 * Remove a vine form the current user
+	 * 
+	 * @param model
+	 * @param vineId
+	 * @param auth
+	 * @return
+	 */
 	@PostMapping(value = "remove-from-cellar")
 	public String remove(Model model, @RequestParam Long vineId, Authentication auth) {
 		User user = (User) auth.getPrincipal();
-		
+
 		UserVine uv = userVineService.getUV(user, cellarService.getVineById(vineId)).get();
 		userVineService.removeVineFromUser(uv);
 		return "redirect:/my-cellar/";

@@ -15,11 +15,20 @@ public class UserVineKey implements Serializable {
 	@Column(name = "vine_id")
 	private Long vineId;
 
+	/**
+	 * Use Objects.hash to compute the hash.
+	 * 
+	 * Allow usage of hash table for comparing
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(userId, vineId);
 	}
 
+	/**
+	 * Compare a UserVineKey with another object, return true when both foreign key
+	 * are equals (this.userId == obj.userId && this.vineId == obj.vineId)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) {

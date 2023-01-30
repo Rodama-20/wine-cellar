@@ -11,7 +11,10 @@ import ch.hearc.jee2022.myvines.cellar.service.impl.UserServiceImpl;
 @Configuration
 public class Config {
 	
-	
+	/**
+	 * Define the password encoder for the application
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();

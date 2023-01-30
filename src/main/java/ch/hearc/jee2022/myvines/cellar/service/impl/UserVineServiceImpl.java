@@ -38,6 +38,9 @@ public class UserVineServiceImpl implements UserVineService {
 		return repository.findAllByUserId(user.getId());
 	}
 
+	/**
+	 * Build the composite key and use it to search the many to many relation
+	 */
 	@Override
 	public Optional<UserVine> getUV(User user, Vine vine) {
 		UserVineKey uvKey = new UserVineKey();
@@ -51,6 +54,10 @@ public class UserVineServiceImpl implements UserVineService {
 		return repository.findAllByUserId(user.getId(), page);
 	}
 
+	/**
+	 * Build the composite key and use it to edit the amount of vine the user has in
+	 * its cellar
+	 */
 	@Override
 	public void editAmount(User user, Long vineId, Integer amount) {
 		UserVineKey uvKey = new UserVineKey();

@@ -26,7 +26,7 @@ public class Vine {
 
 	@OneToMany(mappedBy = "vine")
 	private Set<UserVine> owners;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -82,7 +82,5 @@ public class Vine {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-	
 
 }

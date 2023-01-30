@@ -18,6 +18,13 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	/**
+	 * Show the registration form
+	 * 
+	 * @param request
+	 * @param model
+	 * @return the registration template
+	 */
 	@GetMapping("/register")
 	public String showRegistrationForm(WebRequest request, Model model) {
 
@@ -25,6 +32,15 @@ public class UserController {
 		return "registration";
 	}
 
+	/**
+	 * Proceed the registration form and register the user. Redirect to the login on
+	 * success or on the form when there are problem
+	 * 
+	 * @param userDto
+	 * @param errors
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/register")
 	public String registerUserAccount(@ModelAttribute UserDto userDto, BindingResult errors, Model model) {
 

@@ -20,6 +20,12 @@ public class MyVinesApplication {
 		SpringApplication.run(MyVinesApplication.class, args);
 	}
 
+	/**
+	 * Define the two bases users of the application
+	 * 
+	 * @param serviceImpl the UserService to interact with the database
+	 * @return
+	 */
 	@Bean
 	public CommandLineRunner InitUser(UserServiceImpl serviceImpl) {
 		return args -> {
@@ -41,6 +47,12 @@ public class MyVinesApplication {
 		};
 	}
 
+	/**
+	 * Define some vines to begin to use the application
+	 * 
+	 * @param repository the VineRepository to store the vines
+	 * @return
+	 */
 	@Bean
 	public CommandLineRunner InitVine(VineRepository repository) {
 		return args -> {

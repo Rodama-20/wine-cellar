@@ -24,6 +24,13 @@ public class VineController {
 
 	private static final int ITEM_PER_PAGE = 5;
 
+	/**
+	 * Show the home page of the site with a list of vine split into pages
+	 * @param model
+	 * @param page
+	 * @param auth
+	 * @return
+	 */
 	@GetMapping(value = { "/", "home" })
 	public String showHomePage(Model model, @RequestParam("page") Optional<Integer> page, Authentication auth) {
 		if(auth != null) {

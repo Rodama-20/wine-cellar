@@ -28,6 +28,15 @@ public class AdminController {
 
 	private static final int ITEM_PER_PAGE = 5;
 
+	/**
+	 * Save a new vine or update an existing one
+	 * 
+	 * @param vine
+	 * @param errors
+	 * @param model
+	 * @param type
+	 * @return
+	 */
 	@PostMapping(value = "/save-vine")
 	public String saveVine(@ModelAttribute Vine vine, BindingResult errors, Model model, @RequestParam String type) {
 
