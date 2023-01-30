@@ -90,6 +90,7 @@ public class AdminController {
 		model.addAttribute("showNew", Boolean.FALSE);
 		model.addAttribute("isAdmin", Boolean.TRUE);
 		model.addAttribute("vinePage", vines);
+		model.addAttribute("isEditing", Boolean.TRUE);
 		return "admin/home";
 	}
 

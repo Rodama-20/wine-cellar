@@ -20,4 +20,6 @@ public interface UserVineService {
 	public Optional<UserVine> getUV(User user, Vine vine);
 
 	public Page<UserVine> getAllVineFormUserPageable(User user, Pageable page);
+
+	public void editAmount(User user, Long vineId, Integer amount);
 }

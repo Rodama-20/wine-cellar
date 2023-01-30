@@ -1,12 +1,8 @@
 package ch.hearc.jee2022.myvines.cellar.controller;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,32 +23,21 @@ public class UserVineController {
 	UserVineService userVineService;
 	@Autowired
 	CellarService cellarService;
-	
-	private static final int ITEM_PER_PAGE = 5;
 
 	@GetMapping(value = "my-cellar")
-	public String myCellar(Model model, @RequestParam("page") Optional<Integer> page, Authentication auth) {
+	public String myCellar(Model model, Authentication auth) {
 		User user = (User) auth.getPrincipal();
 		List<UserVine> list = userVineService.getAllVineFormUser(user);
-		
+
 		Double value = UserVine.cellarValue(list).orElse(0.0);
-		
-		int currentPage = page.orElse(1);
-		
-		currentPage = currentPage < 1 ? 1 : currentPage;
-		
-		Page<UserVine> uvPage = userVineService.getAllVineFormUserPageable(user, PageRequest.of(currentPage, ITEM_PER_PAGE));
-		
-		int totalPages = uvPage.getTotalPages();
-		if(totalPages > 0)
-		{
-			List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().toList();
-			model.addAttribute("pageNumbers", pages);
-		}
-		model.addAttribute("uvPage", uvPage);
-		
+
+		model.addAttribute("uvs", list);
+		model.addAttribute("myCellar", Boolean.TRUE);
+		model.addAttribute("value", value);
+		model.addAttribute("isAdmin", user.isAdmin());
+
 		return "cellar";
-		
+
 	}
 
 	@PostMapping(value = "add-to-cellar")
@@ -69,10 +54,29 @@ public class UserVineController {
 			uv.setVine(vine);
 			uv.setAmount(0);
 
+			userVineService.addVineToUser(uv);
+
 		}
 
 		return "redirect:/my-cellar/";
 
+	}
+
+	@PostMapping(value = "edit")
+	public String edit(Model model, @RequestParam Long vineId, @RequestParam Integer amount, Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		
+		userVineService.editAmount(user, vineId, amount);
+		return "redirect:/my-cellar/";
+	}
+	
+	@PostMapping(value = "remove-from-cellar")
+	public String remove(Model model, @RequestParam Long vineId, Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		
+		UserVine uv = userVineService.getUV(user, cellarService.getVineById(vineId)).get();
+		userVineService.removeVineFromUser(uv);
+		return "redirect:/my-cellar/";
 	}
 
 }

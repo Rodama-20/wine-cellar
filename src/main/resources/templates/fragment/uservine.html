@@ -1,0 +1,40 @@
+<div th:fragment="vine-list">
+	<h1>My Cellar</h1>
+	<div> The current value of the cellar is CHF <span th:text="${#numbers.formatDecimal(value.doubleValue, 1, 2)}"></span></div>
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Year</th>
+				<th scope="col">Country</th>
+				<th scope="col">Comment</th>
+				<th scope="col">Edit quantity</th>
+				<th scope="col">Remove from cellar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--  itertaions sur les vins -->
+			<tr th:each="uv: ${uvs}">
+				<td th:text="${uv.vine.name}" />
+				<td th:text="${uv.vine.year}" />
+				<td th:text="${uv.vine.country}" />
+				<td th:text="${uv.vine.comment}" />
+				<td>
+					<form action="#" th:action="@{/edit}" method="post">
+						<input type=hidden th:value="${uv.vine.id}" name="vineId" />
+						<input type=number min=0 name="amount" class="from-control" th:required="required" th:value="${uv.amount}">				
+						<button type="submit" class="btn btn-primary">Edit</button>
+					</form>
+				</td>
+				<td>
+					<form action="#" th:action="@{/remove-from-cellar}" method="post">
+						<input type=hidden th:value="${uv.vine.id}" name="vineId" />
+						<button type="submit" class="btn btn-danger">-</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<a class="btn btn-primary" href="/admin/new-vine" sec:authorize="isAuthenticated()">Enregistrer un nouveau vin</a>
+</div>

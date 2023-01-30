@@ -50,6 +50,7 @@ public class VineController {
 		
 		model.addAttribute("vinePage", vines);
 		model.addAttribute("isPublic", Boolean.TRUE);
+		model.addAttribute("isEditing", Boolean.FALSE);
 		
 		
 		return "home";

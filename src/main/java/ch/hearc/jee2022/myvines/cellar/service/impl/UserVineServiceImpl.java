@@ -35,7 +35,7 @@ public class UserVineServiceImpl implements UserVineService {
 
 	@Override
 	public List<UserVine> getAllVineFormUser(User user) {
-		return repository.findByUser(user);
+		return repository.findAllByUserId(user.getId());
 	}
 
 	@Override
@@ -48,7 +48,18 @@ public class UserVineServiceImpl implements UserVineService {
 
 	@Override
 	public Page<UserVine> getAllVineFormUserPageable(User user, Pageable page) {
-		return repository.findByUser(user, page);
+		return repository.findAllByUserId(user.getId(), page);
+	}
+
+	@Override
+	public void editAmount(User user, Long vineId, Integer amount) {
+		UserVineKey uvKey = new UserVineKey();
+		uvKey.setUserId(user.getId());
+		uvKey.setVineId(vineId);
+		UserVine uv = repository.findById(uvKey).get();
+		uv.setAmount(amount);
+		repository.deleteById(uvKey);
+		repository.save(uv);
 	}
 
 }

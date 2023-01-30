@@ -10,7 +10,7 @@
 				<th scope="col" th:if="${isAdmin}" />
 				<th scope="col" th:if="${isAdmin}" />
 				<th scope="col">Comment</th>
-				<th scope="col" sec:authorize="isAuthenticated()">Add to cellar</th>
+				<th scope="col" sec:authorize="isAuthenticated()" th:if="${!isEditing}">Add to cellar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -33,7 +33,7 @@
 					</form>
 				</td>
 				<td th:text="${vine.comment}" />
-				<td sec:authorize="isAuthenticated()">
+				<td sec:authorize="isAuthenticated()" th:if="${!isEditing}">
 					<form action="#" th:action="@{/add-to-cellar}" method="post">
 						<input type=hidden th:value="${vine.id}" name="vineId" />					
 						<button type="submit" class="btn btn-primary">+</button>
