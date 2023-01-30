@@ -1,5 +1,6 @@
 package ch.hearc.jee2022.myvines.cellar.controller;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;

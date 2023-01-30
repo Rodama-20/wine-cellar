@@ -16,6 +16,7 @@
 				      <th scope="col" th:if="${isPublic}">Evaluate</th>
 				      <th scope="col">Rating</th>
 				      <th scope="col">Comment</th>
+				      <th scope="col" sec:authorize="isAuthenticated()">Stock</th>
 				    </tr>
 				 </thead>
 				 <tbody>
@@ -52,6 +53,8 @@
 				    	</td>
 				    	<td th:text="${vine.rating}" />
 				    	<td th:text="${vine.comment" />
+				    	<td sec:authorize="isAuthenticated()" th:text="${vine.owners}">
+				    	
 				    	
 				    	
 					</tr>
