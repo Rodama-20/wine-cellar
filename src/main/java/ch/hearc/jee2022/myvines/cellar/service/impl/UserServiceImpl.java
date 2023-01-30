@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import ch.hearc.jee2022.myvines.cellar.model.User;
 import ch.hearc.jee2022.myvines.cellar.repository.UserRepository;
 import ch.hearc.jee2022.myvines.cellar.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired

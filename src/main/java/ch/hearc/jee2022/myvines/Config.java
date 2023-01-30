@@ -10,10 +10,7 @@ import ch.hearc.jee2022.myvines.cellar.service.impl.UserServiceImpl;
 
 @Configuration
 public class Config {
-	@Bean
-	public UserDetailsService userDetailsService() {
-		return new UserServiceImpl();
-	}
+	
 	
 	@Bean
 	public PasswordEncoder encoder() {

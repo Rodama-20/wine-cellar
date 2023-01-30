@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class UserVineKey implements Serializable {
 
 	@Column(name = "user_id")
@@ -32,6 +34,22 @@ public class UserVineKey implements Serializable {
 		}
 		return false;
 
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getVineId() {
+		return vineId;
+	}
+
+	public void setVineId(Long vineId) {
+		this.vineId = vineId;
 	}
 
 }

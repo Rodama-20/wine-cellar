@@ -19,7 +19,7 @@ public class User implements UserDetails{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	private String username;
 	private String password;
@@ -29,11 +29,11 @@ public class User implements UserDetails{
 	@OneToMany(mappedBy = "user")
 	private Set<UserVine> vines;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -53,11 +53,11 @@ public class User implements UserDetails{
 		this.password = password;
 	}
 
-	public Boolean getIsAdmin() {
+	public Boolean isAdmin() {
 		return isAdmin;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
+	public void setAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 

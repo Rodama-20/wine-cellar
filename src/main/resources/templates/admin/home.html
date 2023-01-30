@@ -11,44 +11,19 @@
 
 
 <body>
-	<!--  **************** logout ****************** -->
-	<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
-		Utilisateur: <span sec:authentication="name">[]</span>
-		Roles: <span sec:authentication="principal.authorities"></span>
-		<div>
-			<form action="#" th:action="@{/logout}" method="post">
-				<input type="submit" value="Logout" />
-			</form>
-		</div>
-	</div>
+	<header th:replace="fragment/common :: header"></header>
+	
 
 	<div class="container">
 
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">My Cellar Admin</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="/admin/new-vine">Nouvelle bières <span
-								class="sr-only">(current)</span></a>
-					</li>
-				</ul>
-
-			</div>
-		</nav>
-
+		
 		<!-- choix fragment -->
 		<div th:if="${showNew}">
 			<div th:replace="fragment/vine :: new-vine"></div>
 		</div>
 		<div th:if="${showList}">
 			<div th:replace="fragment/vine :: vine-list"></div>
-			<a class="btn btn-primary" href="/admin/new-vine">Enregistrer une nouvelle bière</a>
+			
 		</div>
 
 

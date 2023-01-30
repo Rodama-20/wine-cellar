@@ -1,6 +1,8 @@
 package ch.hearc.jee2022.myvines.cellar.controller;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,7 @@ public class AdminController {
 	@Autowired
 	CellarService cellarService;
 
-	private static final int ITEM_PER_PAGE = 10;
+	private static final int ITEM_PER_PAGE = 5;
 
 	@PostMapping(value = "/save-vine")
 	public String saveVine(@ModelAttribute Vine vine, BindingResult errors, Model model, @RequestParam String type) {
@@ -53,7 +55,7 @@ public class AdminController {
 
 		model.addAttribute("isNew", Boolean.TRUE);
 		model.addAttribute("isEdit", Boolean.FALSE);
-		return "admin/accueil";
+		return "admin/home";
 	}
 
 	@PostMapping(value = "/edit-vine")
@@ -68,7 +70,7 @@ public class AdminController {
 		model.addAttribute("isEdit", Boolean.TRUE);
 		model.addAttribute("isNew", Boolean.FALSE);
 
-		return "admin/accueil";
+		return "admin/home";
 	}
 
 	@GetMapping(value = { "/" })
@@ -78,12 +80,16 @@ public class AdminController {
 		currentPage = currentPage < 1 ? 1 : currentPage;
 
 		Page<Vine> vines = cellarService.getAllVinesFromCellar(PageRequest.of(currentPage - 1, ITEM_PER_PAGE));
+		int totalPages = vines.getTotalPages();
+		if (totalPages > 0) {
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().toList();
+			model.addAttribute("pageMumbers", pageNumbers);
+		}
 
 		model.addAttribute("showList", Boolean.TRUE);
 		model.addAttribute("showNew", Boolean.FALSE);
 		model.addAttribute("isAdmin", Boolean.TRUE);
-		model.addAttribute("vines", vines.getContent());
-		model.addAttribute("pages", vines);
+		model.addAttribute("vinePage", vines);
 		return "admin/home";
 	}
 

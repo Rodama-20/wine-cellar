@@ -27,7 +27,7 @@ public class SecurityConfig {
 
 		http//
 				.authorizeRequests()//
-				.antMatchers("/", "/home")//
+				.antMatchers("/", "/home", "/register")//
 				.permitAll()//
 				.anyRequest()//
 				.authenticated()//
@@ -35,7 +35,7 @@ public class SecurityConfig {
 				.formLogin()//
 				.permitAll();
 
-		http.logout().logoutSuccessUrl("/admin");
+		http.logout().logoutSuccessUrl("/home");
 
 		return http.build();
 

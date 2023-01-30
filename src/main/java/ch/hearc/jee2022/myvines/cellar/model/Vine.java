@@ -2,6 +2,7 @@ package ch.hearc.jee2022.myvines.cellar.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,24 +14,24 @@ public class Vine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	private String name;
 	private Integer year;
 	private String country;
-	private Double rating;
 	private String image;
+	@Column(length = 1024)
 	private String comment;
 	private Double price;
 
 	@OneToMany(mappedBy = "vine")
 	private Set<UserVine> owners;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

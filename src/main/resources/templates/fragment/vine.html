@@ -1,94 +1,109 @@
-
-
-
-
 <div th:fragment="vine-list">
 	<h1>Vine list</h1>
-			
-			<table class="table">
-				 <thead class="thead-dark">
-				    <tr>
-				      <th scope="col">Name</th>
-				      <th scope="col">Year</th>
-				      <th scope="col">Country</th>
-				      <th scope="col" th:if="${isAdmin}"/>
-				      <th scope="col" th:if="${isAdmin}"/>
-				      <th scope="col" th:if="${isPublic}">Evaluate</th>
-				      <th scope="col">Rating</th>
-				      <th scope="col">Comment</th>
-				      <th scope="col" sec:authorize="isAuthenticated()">Stock</th>
-				    </tr>
-				 </thead>
-				 <tbody>
-					<!--  itertaions sur les bieres -->
-					<tr th:each="vine: ${vines}">
-				    	<td th:text="${vine.name}" />
-				    	<td th:text="${vine.year}" />
-				    	<td th:text="${vien.country}" />
-				    	<td th:if="${isAdmin}">
-				    		<form action="#" th:action="@{/admin/delete-vine}" th:object="${vine}" method="post">
-				    			<input type="hidden" th:value="${vine.id}" name="id" />
-				    			<button type="submit" class="btn btn-danger">Delete</button>
-				    		</form>
-				    		
-				    	</td>
-				    	<td th:if="${isAdmin}">
-				    		<form action="#" th:action="@{/admin/edit-vine}" th:object="${vine}" method="post">
-				    			<input type="hidden" th:value="${vine.id}" name="id" />
-				    			<button type="submit" class="btn btn-warning">Edit</button>
-				    		</form>
-				    	</td>
-				    	<td th:if="${isPublic}">
-				    		<form action="#" th:action="@{/evaluate}" method="post">
-							    <select name="note" style="width: 40px"> class="form-control" id="eval">
-							      <option>1</option>
-							      <option>2</option>
-							      <option>3</option>
-							      <option>4</option>
-							      <option>5</option>
-							    </select>
-							    <input type="hidden" th:value="${vine.id}" name="vineId" />
-							    <button type="submit" class="btn btn-warning">Rate</button>
-				    		</form>
-				    	</td>
-				    	<td th:text="${vine.rating}" />
-				    	<td th:text="${vine.comment" />
-				    	<td sec:authorize="isAuthenticated()" th:text="${vine.owners}">
-				    	
-				    	
-				    	
-					</tr>
-				</tbody>
-		    </table>
+
+	<table class="table">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Name</th>
+				<th scope="col">Year</th>
+				<th scope="col">Country</th>
+				<th scope="col" th:if="${isAdmin}" />
+				<th scope="col" th:if="${isAdmin}" />
+				<th scope="col">Comment</th>
+				<th scope="col" sec:authorize="isAuthenticated()">Add to cellar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--  itertaions sur les vins -->
+			<tr th:each="vine: ${vinePage.content}">
+				<td th:text="${vine.name}" />
+				<td th:text="${vine.year}" />
+				<td th:text="${vine.country}" />
+				<td th:if="${isAdmin}">
+					<form action="#" th:action="@{/admin/delete-vine}" th:object="${vine}" method="post">
+						<input type="hidden" th:value="${vine.id}" name="id" />
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+
+				</td>
+				<td th:if="${isAdmin}">
+					<form action="#" th:action="@{/admin/edit-vine}" th:object="${vine}" method="post">
+						<input type="hidden" th:value="${vine.id}" name="id" />
+						<button type="submit" class="btn btn-warning">Edit</button>
+					</form>
+				</td>
+				<td th:text="${vine.comment}" />
+				<td sec:authorize="isAuthenticated()">
+					<form action="#" th:action="@{/add-to-cellar}" method="post">
+						<input type=hidden th:value="${vine.id}" name="vineId" />					
+						<button type="submit" class="btn btn-primary">+</button>
+					</form>
+				</td>
+
+
+
+			</tr>
+		</tbody>
+	</table>
+	<nav aria-label="pagination" th:if="${vinePage.totalPages > 0}">
+		<ul class="pagination">
+			<li th:class="${(vinePage.number) <= 0} ? 'page-item disabled' : 'page-item'">
+				<a class="page-link"
+					th:href="@{/home(page=${vinePage.number})}">Previous</a>
+			</li>
+			<li th:each="pageNumber : ${pageMumbers}"
+				th:class="${pageNumber==vinePage.number + 1} ? 'page-item active' : 'page-item'">
+				<a class="page-link" th:href="@{/home(page=${pageNumber})}" th:text=${pageNumber}></a>
+			</li>
+			<li th:class="${(vinePage.number + 1) >= vinePage.totalPages} ? 'page-item disabled' : 'page-item'">
+				<a class="page-link"
+					th:href="@{/home(page=${vinePage.number + 2})}">Next</a>
+			</li>
+		</ul>
+	</nav>
+	<a class="btn btn-primary" href="/admin/new-vine" sec:authorize="isAuthenticated()">Enregistrer un nouveau vin</a>
 </div>
 
 <div th:fragment="new-vine">
 	<h1 th:if="${isNew}">New vine</h1>
 	<h1 th:if="${isEdit}">Edit vine</h1>
-	
+
 	<form action="#" th:action="@{/admin/save-vine}" th:object="${vine}" method="post">
-	     
-	     <div th:if="${isEdit}" class="form-group">   
-	     	<label for="id" th:text="Id"></label>
-	        <input type="text"  class="form-control" th:required="required" readonly th:field="*{id}" />
-	     </div>
-	     <div class="form-group">   
-	     	<label for="name" th:text="Nom"></label>
-	        <input type="text"  class="form-control" th:required="required" th:field="*{name}" />
-	     </div>
-	     
-	     <div class="form-group">   
-	     	<label for="price" th:text="Prix"></label>
-	        <input type="number" min="0" value="0" step="0.05" class="form-control" th:required="required" th:field="*{price}" />
-	     </div>
-	     
-	     <div class="form-group">   
-	     	<label for="stock" th:text="Stock"></label>
-	        <input type="number" min="0" value="0" step="1" class="form-control" th:required="required" th:field="*{stock}" />
-	     </div>
-	     
-	    <input type="hidden" name="type" th:if="${isNew}" th:value="new" />
+
+		<div th:if="${isEdit}" class="form-group">
+			<label for="id" th:text="Id"></label>
+			<input type="text" class="form-control" th:required="required" readonly th:field="*{id}" />
+		</div>
+		<div class="form-group">
+			<label for="name" th:text="Name"></label>
+			<input type="text" class="form-control" th:required="required" th:field="*{name}" />
+		</div>
+
+		<div class="form-group">
+			<label for="year" th:text="Year"></label>
+			<input type="number" min="0" value="0" step="1" class="form-control" th:field="*{year}" />
+		</div>
+
+		<div class="form-group">
+			<label for="country" th:text="Country"></label>
+			<input type="text" class="form-control" th:required="required" th:field="*{country}" />
+		</div>
+
+		<div class="form-group">
+			<label for="comment" th:text="Comment"></label>
+			<textarea id="comment" th:field="*{comment}"></textarea>
+		</div>
+
+
+		<div class="form-group">
+			<label for="price" th:text="Price"></label>
+			<input type="number" min="0" value="0" step="0.05" class="form-control" th:required="required"
+				th:field="*{price}" />
+		</div>
+
+
+		<input type="hidden" name="type" th:if="${isNew}" th:value="new" />
 		<input type="hidden" name="type" th:if="${isEdit}" th:value="edit" />
-	    <button type="submit" class="btn btn-primary">Save</button>
+		<button type="submit" class="btn btn-primary">Save</button>
 	</form>
 </div>

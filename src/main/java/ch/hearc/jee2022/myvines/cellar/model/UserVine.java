@@ -13,7 +13,7 @@ import javax.persistence.MapsId;
 public class UserVine {
 
 	@EmbeddedId
-	private UserVineKey id;
+	private UserVineKey id = new UserVineKey();
 
 	@ManyToOne
 	@MapsId("userId")
@@ -24,9 +24,8 @@ public class UserVine {
 	@MapsId("vineId")
 	@JoinColumn(name = "vine_id")
 	private Vine vine;
-	
-	private Integer amount;
 
+	private Integer amount;
 
 	public User getUser() {
 		return user;
@@ -44,7 +43,6 @@ public class UserVine {
 		this.vine = vine;
 	}
 
-	
 	public Integer getAmount() {
 		return amount;
 	}

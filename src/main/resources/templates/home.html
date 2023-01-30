@@ -12,13 +12,14 @@
 
 
 <body>
+	<header th:replace="fragment/common :: header"></header>
 
 	<div class="container">
 		<!-- Vine list -->
 		<div th:replace="fragment/vine :: vine-list"></div>
 	</div>
 
-	<!-- webjar footer -->
+	<!-- footer -->
 	<div th:replace="fragment/common :: webjar-footer"></div>
 
 </body>
