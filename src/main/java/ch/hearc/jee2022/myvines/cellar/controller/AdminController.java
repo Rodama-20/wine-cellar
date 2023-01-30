@@ -46,7 +46,7 @@ public class AdminController {
 	}
 
 	@GetMapping(value = "/new-vine")
-	public String showNewBeerForm(Model model) {
+	public String showNewVineForm(Model model) {
 		model.addAttribute("vine", new Vine());
 		model.addAttribute("showList", Boolean.FALSE);
 		model.addAttribute("showNew", Boolean.TRUE);
@@ -57,7 +57,7 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/edit-vine")
-	public String showNEditBeerForm(Model model, @RequestParam Integer id) {
+	public String showEditVineForm(Model model, @RequestParam Integer id) {
 
 		Vine vineToEdit = cellarService.getVineById(id.longValue());
 
@@ -72,7 +72,7 @@ public class AdminController {
 	}
 
 	@GetMapping(value = { "/" })
-	public String showAccueilPage(Model model, @RequestParam("page") Optional<Integer> page) {
+	public String showHomePage(Model model, @RequestParam("page") Optional<Integer> page) {
 		int currentPage = page.orElse(1);
 
 		currentPage = currentPage < 1 ? 1 : currentPage;
@@ -84,7 +84,7 @@ public class AdminController {
 		model.addAttribute("isAdmin", Boolean.TRUE);
 		model.addAttribute("vines", vines.getContent());
 		model.addAttribute("pages", vines);
-		return "admin/accueil";
+		return "admin/home";
 	}
 
 }
